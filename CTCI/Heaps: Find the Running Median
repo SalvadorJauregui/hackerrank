@@ -1,0 +1,115 @@
+https://www.hackerrank.com/challenges/ctci-find-the-running-median/problem
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] a = new int[n];
+        for(int a_i=0; a_i < n; a_i++){
+            a[a_i] = in.nextInt();
+        }
+        RunningMedian rm = new RunningMedian(a);
+    }
+}
+
+class RunningMedian {
+
+    int[] numbers;
+    double median;
+
+    PriorityQueue<Integer> minHeap, maxHeap;
+
+    RunningMedian(int[] numbers) {
+        if (numbers.length == 0)
+            throw new IllegalStateException("The number array is empty");
+        
+        this.numbers = numbers;
+        minHeap = new PriorityQueue<>();
+        //maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        maxHeap = new PriorityQueue<>((x, y) -> y - x); 
+
+        insertLeft(numbers[0]);
+        this.median = numbers[0];
+        showMedian();
+        run();
+    }
+
+    private void run() {
+        int number = 0;
+        for (int i = 1; i < numbers.length; i++) {
+            number = numbers[i];
+            // Insert
+            if (number < getMedian()){
+                insertLeft(number);
+            }else{
+                insertRight(number);
+            }
+            // Check if the diference is bigger than 1 in both sides left/right
+            if (getLeftSize() - getRightSize() > 1)
+                insertRight(getLeftElement());
+            else if (getRightSize() - getLeftSize() > 1)
+                insertLeft(getRightElement());       
+            
+            // Set Median
+            if (getLeftSize() > getRightSize())
+                setMedian(getLeftPeeK());                
+            else if (getRightSize() > getLeftSize())
+                setMedian(getRightPeeK());
+            else
+                setMedian( (double)(getLeftPeeK() + getRightPeeK())/2);
+            showMedian();
+        }
+    }
+    
+    private int getLeftElement(){
+        return maxHeap.remove();
+    }
+    
+    private int getRightElement(){
+        return minHeap.remove();
+    }
+
+    private void insertLeft(int a) {
+        maxHeap.add(a);
+    }
+
+    private void insertRight(int a) {
+        minHeap.add(a);
+    }
+
+    private int getLeftSize() {
+        return maxHeap.size();
+    }
+
+    private int getRightSize() {
+        return minHeap.size();
+    }
+
+    private int getLeftPeeK() {
+        return maxHeap.peek();
+    }
+
+    private int getRightPeeK() {
+        return minHeap.peek();
+    }
+
+    private void showMedian() {
+        System.out.printf("%.1f%n", this.median);
+    }
+    
+    private void setMedian(double a){
+        this.median = a;
+    }
+    
+    private double getMedian(){
+        return this.median;
+    }
+}
