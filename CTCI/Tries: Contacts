@@ -1,0 +1,131 @@
+
+
+/*SOLUTION 1 */
+import java.util.*;
+
+public class Solution {
+
+    public static class Node {
+        int count;
+        Node[] sons;
+
+        Node() {
+            count = 0;
+            sons = new Node[26];
+            Arrays.fill(sons, null);
+        }
+    }
+
+    public static class Contact {
+        Node root;
+        Contact() {
+            root = new Node();
+        }
+
+        public void addContact(String name) {
+            Node node = root;
+            for (Character c : name.toCharArray()) {
+                if (node.sons[c - 'a'] == null)
+                    node.sons[c - 'a'] = new Node();
+                node.sons[c - 'a'].count++;
+                node = node.sons[c - 'a'];
+            }
+        }
+
+        public int findContact(String name) {
+            int count = 0;
+            Node node = root;
+
+            for (Character c : name.toCharArray()) {
+                node = node.sons[c - 'a'];
+                if (node == null)
+                    return 0;
+            }
+            return node.count;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Contact agenda = new Contact();
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        for (int a0 = 0; a0 < n; a0++) {
+            String op = in.next();
+            String contact = in.next();
+            if (op.charAt(0) == 'a') {
+                agenda.addContact(contact);
+            } else if (op.charAt(0) == 'f') {
+                System.out.println(agenda.findContact(contact));
+            } else {
+                System.out.println("Bad operation: " + op);
+            }
+        }
+    }
+}
+
+/* SOLUTION 2 */
+import java.util.*;
+
+public class Solution {
+
+    public static class Node {
+        int count;
+        Node[] sons;
+
+        Node() {
+            count = 0;
+            sons = new Node[26];
+            Arrays.fill(sons, null);
+        }
+    }
+
+    public static class Contact {
+        Node root;
+        Contact() {
+            root = new Node();
+        }
+
+        public void addContact(String name) {
+            Node node = root;
+            byte index;
+            for (Character c : name.toCharArray()) {
+                index = (byte)(c  - 'a');
+                if (node.sons[index] == null)
+                    node.sons[index] = new Node();
+                node.sons[index].count++;
+                node = node.sons[index];
+            }
+        }
+
+        public int findContact(String name) {
+            int count = 0;
+            Node node = root;
+            
+            for (Character c : name.toCharArray()) {
+                node = node.sons[c - 'a'];
+                if (node == null)
+                    return 0;
+            }
+            return node.count;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Contact agenda = new Contact();
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        for (int a0 = 0; a0 < n; a0++) {
+            String op = in.next();
+            String contact = in.next();
+            if (op.charAt(0) == 'a') {
+                agenda.addContact(contact);
+            } else if (op.charAt(0) == 'f') {
+                System.out.println(agenda.findContact(contact));
+            } else {
+                System.out.println("Bad operation: " + op);
+            }
+        }
+    }
+}
