@@ -1,0 +1,31 @@
+https://www.hackerrank.com/challenges/ctci-is-binary-search-tree/problem
+
+/* 
+The Node class is defined as follows:
+    class Node {
+        int data;
+        Node left;
+        Node right;
+     }
+*/    
+    ArrayList<Integer> al = new ArrayList<>();
+    boolean checkBST(Node root) {        
+        check(root);       
+        return checkList();
+    }
+
+    void check(Node node){        
+        if (node != null){
+            check(node.left);
+            al.add(node.data);
+            check(node.right);            
+        }
+        return;
+    }
+    
+    boolean checkList(){
+        for (int i=1; i < al.size(); i++)
+            if (al.get(i-1) >= al.get(i))
+                return false;
+        return true;
+    }
