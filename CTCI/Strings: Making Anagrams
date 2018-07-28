@@ -12,10 +12,16 @@ public class Solution {
         
         int sum = 0;
         int[] map = new int[27];
+        
+        /* Sum each character from first into map */
         for (int i = 0; i < first.length(); i++)
             map[first.charAt(i)-'a']++;
+            
+        /* Rest each character from second into map */
         for (int j = 0; j< second.length(); j++)
             map[second.charAt(j)-'a']--;
+            
+        /* If map contians zeros, exist a perfect match between first : second */
         for (Integer i : map)
             sum+=Math.abs(i);
         return sum;
