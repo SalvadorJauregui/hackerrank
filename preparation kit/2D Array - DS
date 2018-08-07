@@ -1,0 +1,38 @@
+https://www.hackerrank.com/challenges/2d-array/problem?h_l=interview&playlist_slugs%5B%5D%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D%5B%5D=arrays
+
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    
+    static int getMaxHourGlass(int a[][]){
+        int maxsum=Integer.MIN_VALUE;
+        for(int row=0; row<4; row++){
+            for(int col=0; col<4; col++){
+                /* Sum the hourglass and hold the max */
+                maxsum = Math.max(maxsum, (a[row][col]+ a[row][col+1]+ a[row][col+2]+
+                                                        a[row+1][col+1]+
+                                           a[row+2][col]+a[row+2][col+1]+a[row+2][col+2]));
+            }
+        }
+        return maxsum;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int arr[][] = new int[6][6];
+        /* Fill up the matrix */
+        for(int arr_i=0; arr_i < 6; arr_i++){
+            for(int arr_j=0; arr_j < 6; arr_j++){
+                arr[arr_i][arr_j] = in.nextInt();
+            }
+        }
+        /* Get the max hourglass */
+        System.out.println(getMaxHourGlass(arr));
+    }
+}
