@@ -1,0 +1,14 @@
+https://www.hackerrank.com/challenges/mark-and-toys/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=sorting
+
+
+    // Complete the maximumToys function below.
+    static int maximumToys(int[] prices, int k) {
+        int items = 0, sum = 0;
+        Arrays.sort(prices);
+        for (; sum < k; items++){
+            sum+=prices[items];
+        }
+        return --items;
+    }
+
+  
