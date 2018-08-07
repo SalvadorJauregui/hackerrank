@@ -1,0 +1,74 @@
+https://www.hackerrank.com/challenges/fraudulent-activity-notifications/problem?h_l=interview&playlist_slugs%5B%5D%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D%5B%5D=sorting
+
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX_EXPENDITURE 200
+#define MAX_N           200000
+
+int main() {
+  unsigned int n=0, day=0, notification=0, i=0, j=0, median=0;
+  unsigned int money[MAX_EXPENDITURE+1]={0}, *history;
+  
+  scanf("%u %u", &n, &day);
+
+  /* Validate input based on Constraints */
+  if ( 1 > n || MAX_N < n || 1 > day || n < day)
+    return EXIT_FAILURE;    
+  
+  history = (unsigned int*)malloc(n * sizeof( unsigned int));          
+
+  /* Get the transaction history */
+  for(i=0; i<n; i++)
+    scanf("%u", (history+i));
+  
+  /* Get the initial expense window*/
+  for(i=0; i<day; i++) 
+    money[*(history+i)]++;
+
+  for(i=day; i<n; i++){
+    median=0;                
+    
+    for(j=0; j<=MAX_EXPENDITURE; j++){
+        median += money[j];
+
+        if(day % 2){ 
+          /* CASE 1: day is odd */
+            if(median > day/2){
+                median = 2 * j;
+                break;
+            }
+        }
+        else{
+          /* CASE 2: day is even */
+            if(median > day/2){              
+                median = 2 * j;
+                break;
+            }
+            else if(median == day/2){
+                median = j;
+                while(money[j+1] == 0)
+                  /* looking for the next expense */
+                  j++;
+                median += j+1;
+                break;
+            }
+        }                        
+    }          
+  
+    if( median <= *(history+i)) 
+      ++notification; 
+    
+    /* Update the expense window */
+    money[*(history+i-day)]--;
+    money[*(history+i)]++;    
+  }
+
+  printf("%u", notification);
+  free(history);
+  return EXIT_SUCCESS;
+}
