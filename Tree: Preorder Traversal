@@ -1,0 +1,26 @@
+https://www.hackerrank.com/challenges/tree-preorder-traversal/problem
+
+/* Solution 1: Iterative */
+void preOrder(Node root) {
+    /* Iterative form */
+    Stack<Node> st = new Stack<>();
+    Node current;
+    
+    if (root == null)
+        return;
+    
+    st.add(root);
+    
+    while(st.isEmpty()==false){
+        /* Operation */
+        current = st.pop();
+        System.out.print(current.data + " ");
+        /* Add the children if they exist */
+        if (current.right != null)
+            st.add(current.right);
+        if (current.left != null)
+            st.add(current.left);
+    }
+}
+
+/* Solution 2: Recursive */
