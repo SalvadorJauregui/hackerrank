@@ -3,12 +3,6 @@ https://www.hackerrank.com/challenges/ctci-balanced-brackets/problem
 
 /* SOLUTION 1 */
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
-
 public class Solution {
     
     static Stack<Character> st = new Stack<>();
@@ -61,7 +55,8 @@ public class Solution {
 }
 
 
-/* SOLUTION 2 */
+/* SOLUTION 2: TOKENS */
+https://www.hackerrank.com/challenges/ctci-balanced-brackets/submissions/code/67267322
 
 public class Solution {
     static char[][] BRACKETS = { {'{','}'}, {'[',']'}, {'(',')'} };    
@@ -116,7 +111,9 @@ public class Solution {
 
 
 
-/* SOLUTION 3 */
+/* SOLUTION 3: HASH MAP */
+https://www.hackerrank.com/challenges/ctci-balanced-brackets/submissions/code/67279246
+
 public class Solution {
     static HashMap<Character,Character> map;    
     static Stack<Character> st = new Stack<>();
