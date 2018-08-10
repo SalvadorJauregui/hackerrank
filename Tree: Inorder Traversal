@@ -1,0 +1,55 @@
+
+
+/* you only have to complete the function given below.  
+Node is defined as  
+
+class Node {
+    int data;
+    Node left;
+    Node right;
+}
+
+*/
+
+/* Solution 1: Iterative */
+https://www.hackerrank.com/challenges/tree-inorder-traversal/submissions/code/70499945
+
+void inOrder(Node root) {    
+    if (root == null)
+        return;
+    Stack<Node> st = new Stack<>();
+    Node current;
+    addLine(st, root);
+    while(st.isEmpty()==false){
+        current = st.pop();
+        System.out.print(current.data + " ");
+        if (current.right != null)
+            addLine(st, current.right);   
+    }    
+}
+
+public static void addLine(Stack<Node> st, Node node){    
+    while(node != null){
+        st.add(node);
+        node = node.left;
+    }    
+}
+
+/* Solution 2: Iterative one loop */
+https://www.hackerrank.com/challenges/tree-inorder-traversal/submissions/code/70501678
+
+void inOrder(Node root) {    
+    if (root == null)
+        return;
+    Stack<Node> st = new Stack<>();
+    while(!st.isEmpty() || root!=null){
+        if(root!=null){
+            st.push(root);
+            root = root.left;
+        }else{
+            root = st.pop();
+            System.out.print(root.data+" ");
+            root = root.right;
+        }
+    }
+}
