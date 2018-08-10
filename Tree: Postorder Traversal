@@ -1,0 +1,56 @@
+https://www.hackerrank.com/challenges/tree-postorder-traversal/problem
+
+Node is defined as  
+
+class Node {
+    int data;
+    Node left;
+    Node right;
+}
+
+*/
+
+/* Solution 1: iterative 2 stacks */
+https://www.hackerrank.com/challenges/tree-postorder-traversal/submissions/code/71019364
+
+void postOrder(Node root) {
+    Stack<Node> st = new Stack<>();
+    Stack<Node> ready = new Stack<>();
+    
+    st.push(root);
+    
+    while(!st.isEmpty()){
+        root = st.pop();
+        ready.push(root);
+        if (root.left != null)
+            st.push(root.left);
+        if (root.right != null)
+            st.push(root.right);
+    }
+        
+    while(!ready.isEmpty()){
+        root = ready.pop();
+        System.out.print(root.data + " ");
+    }
+}
+
+/* Solution 2: Iterative 2 stacks */
+https://www.hackerrank.com/challenges/tree-postorder-traversal/submissions/code/71019864
+
+void postOrder(Node root) {
+    Node t = root;
+    Stack<Node> stack = new Stack<Node>();
+    stack.push(root);
+    while(!stack.isEmpty()){
+        root = stack.peek();        
+        if( (root.left==null&&root.right==null) || (t==root.left||t==root.right) ){
+            System.out.print(root.data + " ");
+            stack.pop();
+            t = root;
+        }else{
+            if(root.right!=null) stack.push(root.right);
+            if(root.left!=null) stack.push(root.left);
+        }
+    }
+
+}
