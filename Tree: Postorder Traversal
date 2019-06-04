@@ -34,7 +34,7 @@ void postOrder(Node root) {
     }
 }
 
-/* Solution 2: Iterative 2 stacks */
+/* Solution 2: Iterative 1 stacks */
 https://www.hackerrank.com/challenges/tree-postorder-traversal/submissions/code/71019864
 
 void postOrder(Node root) {
